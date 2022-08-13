@@ -1,0 +1,111 @@
+﻿@page
+@model AspDotNetRazorDemoProject.Pages.PatientProfile._PatientInfoForm_PartialModel
+
+
+    @{
+
+
+        var combobox_data = new List<SelectListItem>() {
+        new SelectListItem() {
+        Text = "France", Value = "1"
+        },
+        new SelectListItem() {
+        Text = "Germany", Value = "2"
+        },
+        new SelectListItem() {
+        Text = "Italy", Value = "3"
+        },
+        new SelectListItem() {
+        Text = "Spain", Value = "4"
+        }
+    };
+    }
+
+<div clas="container bg-light">
+    <div class="row">
+        <div class="col-sm-6">
+            <img src="~/images/profile.jpg" class="rounded-circle" width="120" height="120" alt="profile picture" />
+            <button class="btn btn-outline-info  rounded-pill">Change Profile Picture</button>
+            <button class="btn btn-outline-info rounded-pill">Change Password</button>
+        </div>
+        <div class="col-sm-6">
+            <div class="text-start">
+                <label class="text-uppercase"> Jhon Smith</label>
+                <label class="text-uppercase"> Patient Id</label>
+                <p class="fs-4 fw-bold">EBRG8712305</p>
+
+                <label class="text-uppercase">Email Address</label>
+                 <p class="fs-4 fw-bold">shonsmith@gmail.com</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="bg-light">
+    
+    <div class="demo-section">
+        <h4>Grid Layout</h4>
+        <div id="validation-success"></div>
+        <kendo-form layout="grid" form-data="@Model" name="exampleForm" on-validate-field="onFormValidateField" on-submit="onFormSubmit" on-clear="onFormClear" action="Layout" method="POST">
+            <form-items>
+                <form-item type="group" layout="grid">
+                    <grid cols="1" gutter="10"/>
+                    <item-label text="Personal Information" />
+                    <form-items>
+                        <form-item field="FirstName">
+                            <item-label text="First Name:">
+                        </form-item>
+                        <form-item field="LastName">
+                            <item-label text="Last Name:">
+                        </form-item>
+                        <form-item field="Email">
+                            <item-label text="Email:">
+                        </form-item>
+                    </form-items>
+                </form-item>
+                <form-item type="group" layout="grid">
+                    <grid cols="2" gutter="10"/>
+                    <item-label text="Shipping Address" />
+                    <form-items>
+                        <form-item field="ShipCountry" editor="ComboBox" col-span="1">
+                            <item-label text="Country:">
+                                <combobox-editor datatextfield="Text" datavaluefield="Value" bind-to="combobox_data"></combobox-editor>
+                        </form-item>
+                        <form-item field="City" col-span="1">
+                            <item-label text="City:">
+                        </form-item>
+                        <form-item field="Address" col-span="2">
+                            <item-label text="Address Line:">
+                        </form-item>
+                    </form-items>
+                </form-item>
+            </form-items>
+            <validatable validate-on-blur="true" />
+            <grid cols="2" gutter="20" />
+        </kendo-form>
+    </div>
+
+    
+</div>
+
+
+<script>
+        function onFormValidateField(e) {
+            $("#validation-success").html("");
+        }
+
+        function onFormSubmit(e) {
+            e.preventDefault();
+            $("#validation-success").html("<div class='k-messagebox k-messagebox-success'>Form data is valid!</div>");
+        }
+
+        function onFormClear(e) {
+            $("#validation-success").html("");
+        }
+  </script>
+
+<style>
+    #example .demo-section {
+        max-width: 600px;
+        width: 600px;
+    }
+</style>
